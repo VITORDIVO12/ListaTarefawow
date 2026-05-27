@@ -2,12 +2,14 @@
 using ListaTarefawow.models;
 
 bool continuar = true;
-
+Tarefa tarefa = new Tarefa();
+tarefa.carregardojson();
 
 while (continuar)
 {
+    Console.Clear();   
     Console.WriteLine("== Sistema de tarefas - Turma 3B ==");
-        Console.WriteLine("1 - Cadastrar tarefa");
+    Console.WriteLine("1 - Cadastrar tarefa");
     Console.WriteLine("2 - Listar Tarefas");
     Console.WriteLine("3 - Consultar tarefa");
     Console.WriteLine("4 - Remover tarefa");
@@ -24,8 +26,14 @@ while (continuar)
         Console.WriteLine("Digite a descrição da tarefa");
         string descricao = Console.ReadLine();
 
-        Tarefa tarefa = new Tarefa();
-        tarefa.CadastrarTarefa(titulo,descricao);
+        Tarefa novaTarefa = new Tarefa();
+        novaTarefa.CadastrarTarefa(titulo,descricao);
     }
 
+    else if (op == "2")
+    {
+        //listagem de tarefa
+
+        tarefa.ListarTarefa();
+    }
 }
