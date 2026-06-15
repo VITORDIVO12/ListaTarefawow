@@ -26,7 +26,7 @@ while (continuar)
         Console.WriteLine("Digite a descrição da tarefa");
         string descricao = Console.ReadLine();
 
-       // Tarefa novaTarefa = new Tarefa();
+        // Tarefa novaTarefa = new Tarefa();
         tarefa.CadastrarTarefa(titulo, descricao);
     }
 
@@ -40,14 +40,24 @@ while (continuar)
     else if (op == "3")
     {
         // concluir tarefa
-
-        tarefa.ConcluirTarefa(1);
+        Console.WriteLine("Digete a tarefa a ser concluida Baddie girl");
+        int numero = int.Parse(Console.ReadLine());
+        tarefa.ConcluirTarefa(numero);
     }
 
     else if (op == "4")
     {
         // remover tarefa
+        Console.WriteLine("Digete a tarefa a ser Excluida Baddie girl");
+        int numero = int.Parse(Console.ReadLine());
+        tarefa.RemoverTarefa(numero);
+    }
 
-        tarefa.RemoverTarefa(1);
+    else if (op == "0")
+    {
+        continuar = false;
+
+        Console.WriteLine("STOP MAN! programa parado");
+
     }
 }

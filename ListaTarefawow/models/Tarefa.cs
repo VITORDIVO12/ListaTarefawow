@@ -12,9 +12,11 @@ public class Tarefa
 
     private string caminhoTarefa1 = "tarefa1.json";
     private string caminhoTarefa2 = "tarefa2.json";
+    private string caminhoTarefa3 = "tarefa3.json";
 
     private Tarefa tarefa1;
     private Tarefa tarefa2;
+    private Tarefa tarefa3;
 
     private JsonSerializerOptions options = new JsonSerializerOptions()
     {
@@ -32,25 +34,32 @@ public class Tarefa
         novaTarefa.Descricao = descricao;
         novaTarefa.Concluida = false;
 
-        if (tarefa1 != null && tarefa1.Titulo == "")
+        if (tarefa1 == null || tarefa1.Titulo == "")
         {
             string json = JsonSerializer.Serialize(novaTarefa, options);
             File.WriteAllText(caminhoTarefa1, json);
             Console.WriteLine("Tarefa 1 Cadastrada com sucesso!");
         }
 
-        else if (tarefa2 != null && tarefa2.Titulo == "")
+        else if (tarefa2 == null || tarefa2.Titulo == "")
         {
             string json = JsonSerializer.Serialize(novaTarefa, options);
             File.WriteAllText(caminhoTarefa2, json);
             Console.WriteLine("Tarefa 2 Cadastrada com sucesso!");
         }
 
+        else if (tarefa3 == null || tarefa3.Titulo == "")
+        {
+            string json = JsonSerializer.Serialize(novaTarefa, options);
+            File.WriteAllText(caminhoTarefa3, json);
+            Console.WriteLine("Tarefa 3 Cadastrada com sucesso!");
+        }
+
     }
 
     public void ListarTarefa()
     {
-        if (tarefa1 != null && tarefa1.Titulo == "")
+        if (tarefa1 == null || tarefa1.Titulo == "")
         {
             Console.WriteLine("Tarefa1: vazia");
             Console.WriteLine();
@@ -60,7 +69,7 @@ public class Tarefa
         {
             Console.WriteLine("Tarefa1:");
             Console.WriteLine("Titulo:" + tarefa1.Titulo);
-            Console.WriteLine("Titulo" + tarefa1.Descricao);
+            Console.WriteLine("Descricao: " + tarefa1.Descricao);
 
             if (tarefa1.Concluida)
             {
@@ -75,8 +84,8 @@ public class Tarefa
             Console.WriteLine("Status: " + status);
 
         }
-
-        if (tarefa2 == null)
+        Console.WriteLine();
+        if (tarefa2 == null || tarefa2.Titulo == "")
         {
             Console.WriteLine("Tarefa2: vazia");
             Console.WriteLine();
@@ -86,9 +95,35 @@ public class Tarefa
         {
             Console.WriteLine("Tarefa2:");
             Console.WriteLine("Titulo:" + tarefa2.Titulo);
-            Console.WriteLine("Titulo" + tarefa2.Descricao);
+            Console.WriteLine("Descricao:" + tarefa2.Descricao);
 
-            if (tarefa1.Concluida)
+            if (tarefa2.Concluida)
+            {
+                status = "Concluida";
+
+            }
+
+            else
+            {
+                status = "pendente";
+            }
+            Console.WriteLine("Status: " + status);
+
+        }
+        Console.WriteLine();
+        if (tarefa3 == null || tarefa3.Titulo == "")
+        {
+            Console.WriteLine("Tarefa3: vazia");
+            Console.WriteLine();
+        }
+
+        else
+        {
+            Console.WriteLine("Tarefa3:");
+            Console.WriteLine("Titulo:" + tarefa3.Titulo);
+            Console.WriteLine("Descricao:" + tarefa3.Descricao);
+
+            if (tarefa3.Concluida)
             {
                 status = "Concluida";
 
@@ -131,6 +166,16 @@ public class Tarefa
             tarefa2 = null;
         }
 
+        if (File.Exists(caminhoTarefa3))
+        {
+            string json = File.ReadAllText(caminhoTarefa3);
+            tarefa3 = JsonSerializer.Deserialize<Tarefa>(json, options);
+        }
+
+        else
+        {
+            tarefa3 = null;
+        }
 
     }
 
@@ -158,7 +203,12 @@ public class Tarefa
 
         else if (numero == 3)
         {
+            tarefa3.Concluida = true;
+            string json = JsonSerializer.Serialize(tarefa3, options);
+            File.WriteAllText(caminhoTarefa3, json);
 
+            Console.WriteLine("Tarefa 3 concluida coagulo");
+            Console.ReadLine();
         }
     }
 
@@ -186,6 +236,11 @@ public class Tarefa
 
         else if (numero == 3)
         {
+            string json = JsonSerializer.Serialize(new Tarefa(), options);
+            File.WriteAllText(caminhoTarefa3, json);
+
+            Console.WriteLine("Tarefa 3 removida coagulo");
+            Console.ReadLine();
 
         }
 
